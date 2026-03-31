@@ -71,9 +71,10 @@ echo "==> Creating Python venv..."
 if ! python3 -m venv --help &>/dev/null || ! python3 -c "import ensurepip" &>/dev/null; then
     echo "    python3-venv not found — installing..."
     if command -v apt-get &>/dev/null; then
-        PY_VER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
-        apt-get install -y -qq "python3.${PY_VER##*.}-venv" 2>/dev/null || \
-        apt-get install -y -qq python3-venv
+            PY_VER=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
+            apt-get update -qq
+            apt-get install -y -qq "python3.${PY_VER##*.}-venv" 2>/dev/null || \
+            apt-get install -y -qq python3-venv
     elif command -v dnf &>/dev/null; then
         dnf install -y -q python3 python3-pip
     elif command -v yum &>/dev/null; then
